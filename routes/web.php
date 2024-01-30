@@ -1,6 +1,11 @@
 <?php
 
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UtilisateurController;
+use App\Models\Conversation;
+use App\Models\Message;
+use App\Models\Utilisateur;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,9 +19,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::view("/",'login');
+Route::post("/loginA",[LoginController::class,'login'])->name('loginA');
+
+Route::get('/getMessage',[UtilisateurController::class,'index'])->name('getmessage');
+Route::post('/send',[UtilisateurController::class,'send'])->name('send');
+Route::get('/findMessage/{sender}/{receiver}',[UtilisateurController::class,'findMessage'])->name('findMessage');
+
+Route::get('/messages',function(){
+    return view('messages');
 });
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
